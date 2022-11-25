@@ -1,1 +1,2 @@
-Proyecto IS
+Ingeniería del Software 
+Grupo 506
