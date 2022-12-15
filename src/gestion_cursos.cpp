@@ -1,5 +1,5 @@
 // gestion_cursos.cpp: Author: Jesús Núñez de Arenas Llamas
-// Classes for the management of courses
+// Classes and functions for the management of courses
 
 #ifndef GESTION_CURSOS_CPP
 #define GESTION_CURSOS_CPP
@@ -7,13 +7,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <list>
 
 #define MAX_LINEA 256
 
-void get_lista_cursos();
-bool add_curso();
-bool delete_curso();
-bool set_descripcion();
+std::list cargar_cursos();
 
 class Curso {
 	private:
@@ -30,15 +28,22 @@ class Curso {
 	){}
 	inline int get_idc(){return idc_;}
 	inline std::string get_nombre(){return nombre_curso_;}
-	inline std::string get_descripcion(){return descripcion;}
-
+	inline std::string get_descripcion(){return descripcion_curso_;}
+	inline void set_description(std::string descripcion){descripcion_curso_ = descripcion;}
 };
+
+/*
+	Se necesita crear una funcion para borrar los cursos de los ficheros
+*/
 
 class listaCursos: public Curso {
 	private:
 	std::list<Curso> lcursos_;
 
 	public:
+	listaCursos(
+		std::list<Curso> lcursos= cargar_cursos();
+	){}
 	void get_lista_cursos();
 	bool add_curso();
 	bool delete_curso();
@@ -47,26 +52,45 @@ class listaCursos: public Curso {
 
 
 void get_lista_cursos(){
-	FILE *f;
-	f=fopen("Lista_cursos.txt", r);
+
+	ifstream lista("src/data/Lista_cursos.txt");
 	std::string linea;
-	for((fgets(linea, MAX_LINEA, f))!= NULL){
-		cout << linea;
+
+	while( getline(lista, linea) ){ // Coge el nombre del curso
+		cout << linea;			// Imprime por pantalla el nombre del curso
+		getline(lista, linea);	//Linea del id del curso
+		getline(lista, linea);	//Linea de la descripcion
 	}
+
+	lista.close();
 }
 
 bool add_curso(){
+	ofstream lista;
+	lista.open("src/data/Lista_cursos.txt");
 	std::string nombre;
 	int idc;
+
 	std::cout << "Introduzca el nombre del curso\n";
 	std::cin >> nombre;
+	std::cin.ignore();
 	std::cout << "Intoduzca el id del curso\n";
 	std::cin >> idc;
+	std::cin.ignore();
 
 	Curso c(idc, nombre);
+
+	lista << c.get_nombre() << endl;
+	lista << c.get_idc() << endl;
+	lista << c.get_descripcion() << endl;
+
 	lcursos.push_back(c);
+	lista.close();
+
 	return true;
 }
+
+
 
 bool delete_curso(){
 	int idc;
@@ -85,17 +109,39 @@ bool set_descripcion(){
 	std::string descripcion;
 	std::string nombre;
 	std::cout << "Introduzca el nombre del curso\n";
+	std::cin.getline(nombre, MAX_LINEA);
 	std::cin >> nombre;
+	std::cin.ignore();
 	std::cout << "Intoduzca la nueva descripción\n";
+	std::cin.getline(nombre, MAX_LINEA);
 	std::cin >> descripcion;
+	std::cin.ignore();
 	for(auto it=lcursos_.begin(); it != lcursos_.end(); it++){
-		if((*it).get_nombre()==nombre){
-			(*it)->descripcion_curso_ = descripcion;
+		if((*it).get_nombre()== nombre){
+			(*it).set_description(descripcion);
 			return true;
 		}
 	}
 	return false;
 
+}
+
+std::list cargar_cursos(){
+
+	std::list<Curso> listac;
+	std::string linea1;
+	std::string linea2;
+	std::string linea3;
+
+	ifstream lista("src/data/Lista_cursos.txt");
+	while(getline(lista, linea1)){
+		getline(lista, linea2);
+		getline(lista, linea3);
+		Curso c(linea1, linea2, linea3);
+		listac.push_back(c);
+	}
+
+	return listac;
 }
 
 #endif

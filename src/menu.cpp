@@ -1,6 +1,10 @@
+// menu.cpp Author: Jesús Núñez de Arenas Llamas
+// A menu to
+
 #include <iostream>
 #include <string>
 #include "gestion_cursos.cpp"
+#include "inscripcion.cpp"
 
 void menu_admin();
 void menu_usuario();
@@ -118,7 +122,7 @@ void gestion(){
 		exit(EXIT_SUCCESS);
 	break;
 	case 1:
-		if(C.add_curso()) std::cout << "Se ha añadido el curso correctamente";
+		if(C.add_curso()) std::cout << "Se ha añadido el curso correctamente, recuerde que tiene que añadir una descripción";
 		else std::cout << "No se ha podido añadir el curso";
 	break;
 	case 2:
@@ -138,19 +142,16 @@ void visualizar(){
 	std::string curso;
 
 	C.get_lista_cursos();
-	for (auto it = C.begin(); it =! C.end(); it++){
-		std::cout << (*it).get_nombre();
-	}
 	std::cout << "0. Volver al menu principal \n";
 	std::cout << "1. Visualizar la descripcion de un curso \n";
-	cin >> opc;
+	std::cin >> opc;
 	switch(opc){
 		case 0:
 			exit(EXIT_SUCCESS);
 		break;
 		case 1:
-			cout << "Escriba el nombre del curso del que desea visualizar la descripcion";
-			cin >> curso;
+			std::cout << "Escriba el nombre del curso del que desea visualizar la descripcion";
+			std::cin >> curso;
 			for (auto it1 = C.begin(); it1 != C.end(); it1++){
 				if ((*it1).get_nombre()== curso){
 					(*it1).get_descripcion();
