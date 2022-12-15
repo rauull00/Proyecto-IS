@@ -36,7 +36,7 @@ class Curso {
 
 class listaCursos: public Curso {
 	private:
-	std::list<Curso> lcursos;
+	std::list<Curso> lcursos_;
 
 	public:
 	void get_lista_cursos();
@@ -88,7 +88,7 @@ bool set_descripcion(){
 	std::cin >> nombre;
 	std::cout << "Intoduzca la nueva descripción\n";
 	std::cin >> descripcion;
-	for(auto it=lcursos.begin(); it != lcursos.end(); it++){
+	for(auto it=lcursos_.begin(); it != lcursos_.end(); it++){
 		if((*it).get_nombre()==nombre){
 			(*it)->descripcion_curso_ = descripcion;
 			return true;
