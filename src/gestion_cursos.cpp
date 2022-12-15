@@ -40,14 +40,11 @@ class listaCursos: public Curso {
 
 	public:
 	void get_lista_cursos();
-};
-
-class CursoManagement: public listaCursos {
-	public:
 	bool add_curso();
 	bool delete_curso();
 	bool set_descripcion();
 };
+
 
 void get_lista_cursos(){
 	FILE *f;
@@ -71,7 +68,7 @@ bool add_curso(){
 	return true;
 }
 
-bool add_curso(){
+bool delete_curso(){
 	int idc;
 	std::cout << "Intoduzca el id del curso a eliminar\n";
 	std::cin >> idc;
