@@ -97,7 +97,6 @@ void inscripcion(){
 
 	std::cout << "0. Volver al menu principal \n";
 
-
 	std::cin >> opc1;
 	switch(opc2){
 		case 0:
