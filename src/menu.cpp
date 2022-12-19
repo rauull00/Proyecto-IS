@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include "gestion_cursos.cpp"
-#include "inscripcion.cpp"
+#include "gestion_cursos.h"
+#include "inscripcion.h"
 
 void menu_admin();
 void menu_usuario();
@@ -95,14 +95,12 @@ void menu_visitante(){
 void inscripcion(){
 
 	int opc1=0;
-	listaCursos C;
-	Usuario user;
 
 	std::cout << "0. Volver al menu principal \n";
 	std::cout << "1. Comenzar la inscripcion \n";
 
 	std::cin >> opc1;
-	switch(opc2){
+	switch(opc1){
 
 		case 0:
 			exit(EXIT_SUCCESS);
@@ -111,10 +109,10 @@ void inscripcion(){
 		case 1:
 			std::string curso;
 			std::cout << "Escriba el nombre de alguno de los siguientes cursos cambiando los espacios por _";
-			C.get_lista_cursos();
+			get_lista_cursos();
 			std::cin >> curso;
 			std::cin.ignore();
-			user.inscribir_alumno(curso);
+			inscribir_alumno(curso);
 		break;
 
 		}
@@ -127,10 +125,8 @@ void gestion(){
 	std::cout << "0. Volver al menu principal \n";
 	std::cout << "1. Añadir un curso \n";
 	std::cout << "2. Borrar un curso \n";
-	std::cout << "3. Cambiar descripción de un curso \n";
 	std::cin >> opc2;
 
-	listaCursos C();
 
 	switch(opc2){
 
@@ -139,17 +135,13 @@ void gestion(){
 			break;
 
 		case 1:
-			C.add_curso();
-			std::cout << "Se ha añadido el curso correctamente, recuerde que tiene que añadir una descripción";
+			add_curso();
+			std::cout << "Se ha añadido el curso";
 			break;
 
 		case 2:
-			if(C.delete_curso()) std::cout << "Se ha borrado el curso correctamente";
-			else std::cout << "No se ha podido borrar el curso";
-			break;
-
-		case 3:
-			C.set_descripcion();
+			delete_curso();
+			std::cout << "Se ha borrado el curso";
 		break;
 
 	}
@@ -157,11 +149,12 @@ void gestion(){
 
 void visualizar(){
 
-	listaCursos C();
 	int opc;
 	std::string curso;
+	std::list<Curso> C;
+	C = cargar_cursos();
 
-	C.get_lista_cursos();
+	get_lista_cursos();
 
 	std::cout << "0. Volver al menu principal \n";
 	std::cout << "1. Visualizar la descripcion de un curso \n";
