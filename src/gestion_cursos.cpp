@@ -11,9 +11,9 @@
 
 #define MAX_LINEA 256
 
-std::list cargar_cursos();
 
 class Curso {
+
 	private:
 	int idc_;
 	std::string nombre_curso_;
@@ -26,10 +26,12 @@ class Curso {
 		std::string descripcion_curso= "empty";
 
 	){}
+
 	inline int get_idc(){return idc_;}
 	inline std::string get_nombre(){return nombre_curso_;}
 	inline std::string get_descripcion(){return descripcion_curso_;}
 	inline void set_description(std::string descripcion){descripcion_curso_ = descripcion;}
+
 };
 
 /*
@@ -41,17 +43,19 @@ class listaCursos: public Curso {
 	std::list<Curso> lcursos_;
 
 	public:
-	listaCursos(
-		std::list<Curso> lcursos= cargar_cursos();
-	){}
+
+
 	void get_lista_cursos();
-	bool add_curso();
+	void add_curso();
 	bool delete_curso();
 	bool set_descripcion();
+
 };
 
 
 void get_lista_cursos(){
+
+
 
 	ifstream lista("src/data/Lista_cursos.txt");
 	std::string linea;
@@ -65,7 +69,8 @@ void get_lista_cursos(){
 	lista.close();
 }
 
-bool add_curso(){
+void add_curso(){
+
 	ofstream lista;
 	lista.open("src/data/Lista_cursos.txt");
 	std::string nombre;
@@ -74,6 +79,7 @@ bool add_curso(){
 	std::cout << "Introduzca el nombre del curso\n";
 	std::cin >> nombre;
 	std::cin.ignore();
+
 	std::cout << "Intoduzca el id del curso\n";
 	std::cin >> idc;
 	std::cin.ignore();
@@ -87,15 +93,17 @@ bool add_curso(){
 	lcursos.push_back(c);
 	lista.close();
 
-	return true;
 }
 
 
 
 bool delete_curso(){
+
 	int idc;
+
 	std::cout << "Intoduzca el id del curso a eliminar\n";
 	std::cin >> idc;
+
 	for(auto it=lcursos.begin(); it != lcursos.end(); it++){
 		if((*it).get_idc()==idc){
 			lcursos.erase(it);
@@ -108,40 +116,27 @@ bool delete_curso(){
 bool set_descripcion(){
 	std::string descripcion;
 	std::string nombre;
+
 	std::cout << "Introduzca el nombre del curso\n";
 	std::cin.getline(nombre, MAX_LINEA);
 	std::cin >> nombre;
 	std::cin.ignore();
+
 	std::cout << "Intoduzca la nueva descripción\n";
 	std::cin.getline(nombre, MAX_LINEA);
 	std::cin >> descripcion;
 	std::cin.ignore();
+
 	for(auto it=lcursos_.begin(); it != lcursos_.end(); it++){
 		if((*it).get_nombre()== nombre){
 			(*it).set_description(descripcion);
 			return true;
 		}
 	}
+
 	return false;
 
 }
 
-std::list cargar_cursos(){
-
-	std::list<Curso> listac;
-	std::string linea1;
-	std::string linea2;
-	std::string linea3;
-
-	ifstream lista("src/data/Lista_cursos.txt");
-	while(getline(lista, linea1)){
-		getline(lista, linea2);
-		getline(lista, linea3);
-		Curso c(linea1, linea2, linea3);
-		listac.push_back(c);
-	}
-
-	return listac;
-}
 
 #endif

@@ -17,6 +17,13 @@ class Usuario{
 		std::string contraseña_;
 
 	public:
+		Usuario(
+				std::string nombre;
+				int id;
+				std::string email;
+				std::string contraseña;
+		){}
+		void inscribir_alumno(std::string curso);
 
 };
 
@@ -29,6 +36,32 @@ class listaUsuario: public Usuario{
 
 };
 
+void inscribir_alumno(std::string curso){
+	std::string src = "src/data/";
+	ofstream curso_e;
+	src = src + curso + ".txt";
+	curso_e.open(src);
+	std::string linea;
+	int id;
+
+	std::cout << "Introduzca su nombre" << endl;
+	std::cin >> linea;
+	curso_e << linea << endl;
+
+	std::cout << "Introduzca su id" << endl;
+	std::cin >> linea;
+	curso_e << id << endl;
+
+	std::cout << "Introduzca su email" << endl;
+	std::cin >> linea;
+	curso_e << linea << endl;
+
+	std::cout << "Introduzca su contraseña" << endl;
+	std::cin >> linea;
+	curso_e << linea << endl;
+}
+
+
 void get_lista_users(){
 
 	std::string nombre;
@@ -38,13 +71,13 @@ void get_lista_users(){
 	std::cin >> nombre;
 	std::cin.ignore();
 
-	src = src + nombre;
+	src = src + nombre + ".txt";
 
 	ifstream lista(src);
 	std::string linea;
 
 	while( getline(lista, linea) ){ //Coge la linea del nombre
-		cout << linea;			// Imprime por pantalla el nombre de los usuarios
+		std::cout << linea;			// Imprime por pantalla el nombre de los usuarios
 		getline(lista, linea); //Linea del id
 		getline(lista, linea); //Linea del email
 		getline(lista, linea); //Linea de la contraseña
