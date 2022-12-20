@@ -100,6 +100,7 @@ void inscripcion(){
 	std::cout << "1. Comenzar la inscripcion \n";
 
 	std::cin >> opc1;
+	std::cin.ignore(1000, '\n');
 	switch(opc1){
 
 		case 0:
@@ -126,6 +127,7 @@ void gestion(){
 	std::cout << "1. Añadir un curso \n";
 	std::cout << "2. Borrar un curso \n";
 	std::cin >> opc2;
+	std::cin.ignore(1000, '\n');
 
 	switch(opc2){
 
@@ -135,12 +137,12 @@ void gestion(){
 
 		case 1:
 			add_curso();
-			std::cout << "Se ha añadido el curso";
+			std::cout << "Se ha añadido el curso \n";
 			break;
 
 		case 2:
 			delete_curso();
-			std::cout << "Se ha borrado el curso";
+			std::cout << "Se ha borrado el curso \n";
 		break;
 
 	}
@@ -159,6 +161,7 @@ void visualizar(){
 	std::cout << "1. Visualizar la descripcion de un curso \n";
 
 	std::cin >> opc;
+	std::cin.ignore(1000, '\n');
 	switch(opc){
 
 		case 0:

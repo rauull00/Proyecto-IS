@@ -63,29 +63,29 @@ void get_lista_cursos(){
 
 void add_curso(){
 
-	std::list<Curso> lcursos;
-	lcursos = cargar_cursos();
 
-	std::ofstream lista;
-	lista.open("data/Lista_cursos.txt");
+	std::ofstream lista("data/Lista_cursos.txt", std::ios::app);
 
+	std::string linea;
 	std::string nombre;
 	std::string descripcion;
 	int idc;
 
 	std::cout << "Introduzca el nombre del curso\n";
 	std::getline(std::cin, nombre);
-	std::cin.ignore();
+	std::cin.ignore(100, '\n');
 
-	std::cout << "Intoduzca el id del curso\n";
+
+	std::cout << "Introduzca el id del curso\n";
 	std::cin >> idc;
-	std::cin.ignore();
+	std::cin.ignore(100, '\n');
 
-	std::cout << "Intoduzca la nueva descripción\n";
+	std::cout << "Introduzca la nueva descripción\n";
 	std::getline(std::cin, descripcion);
-	std::cin.ignore();
+	std::cin.ignore(100, '\n');
 
 	Curso c(idc, nombre, descripcion);
+
 
 	lista << c.get_nombre() << std::endl;
 	lista << c.get_idc() << std::endl;
@@ -141,20 +141,21 @@ bool set_descripcion(){
 std::list<Curso> cargar_cursos(){
 
 	std::list<Curso> listac;
-	std::string linea1;
-	int linea1a;
-	std::string linea2;
-	std::string linea3;
+	std::string id;
+	int id1;
+	std::string nombre;
+	std::string descripcion;
 
 	std::ifstream lista;
 	lista.open("data/Lista_cursos.txt");
 
 
-	while(getline(lista, linea1)){
-		linea1a = stoi(linea1);
-		getline(lista, linea2);
-		getline(lista, linea3);
-		Curso c(linea1a, linea2, linea3);
+	while(!lista.eof()){
+		getline(lista, nombre)
+		getline(lista, id);
+		id1 = stoi(id);
+		getline(lista, descripcion);
+		Curso c(id1, nombre, descripcion);
 		listac.push_back(c);
 	}
 
