@@ -1,4 +1,4 @@
-// inscripcion.cpp
+// inscripcion.cpp Author: Jesús Núñez de Arenas Llamas
 // Classes and functions for the inscription in courses
 
 #ifndef INSCRIPCION_H

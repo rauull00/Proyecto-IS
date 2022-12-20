@@ -27,6 +27,7 @@ class Curso{
 
 	inline int get_idc(){return idc_;}
 	inline std::string get_nombre(){return nombre_curso_;}
+	inline void set_nombre(std::string nombre){nombre_curso_ = nombre;}
 	inline std::string get_descripcion(){return descripcion_curso_;}
 	inline void set_description(std::string descripcion){descripcion_curso_ = descripcion;}
 
@@ -73,7 +74,6 @@ void add_curso(){
 
 	std::cout << "Introduzca el nombre del curso\n";
 	std::getline(std::cin, nombre);
-	std::cin.ignore(100, '\n');
 
 
 	std::cout << "Introduzca el id del curso\n";
@@ -82,13 +82,12 @@ void add_curso(){
 
 	std::cout << "Introduzca la nueva descripción\n";
 	std::getline(std::cin, descripcion);
-	std::cin.ignore(100, '\n');
 
 	Curso c(idc, nombre, descripcion);
 
-
-	lista << c.get_nombre() << std::endl;
 	lista << c.get_idc() << std::endl;
+	lista << c.get_nombre() << std::endl;
+
 	lista << c.get_descripcion() << std::endl;
 
 
@@ -105,12 +104,27 @@ void delete_curso(){
 
 	std::cout << "Intoduzca el id del curso a eliminar\n";
 	std::cin >> idc;
+	std::cin.ignore(100, '\n');
 
 	for(auto it=lcursos.begin(); it != lcursos.end(); it++){
 		if((*it).get_idc() == idc){
-			lcursos.erase(it);
+			(*it).set_nombre("-1");
 		}
 	}
+	std::ofstream lista2;
+	lista2.open("data/Lista_cursos_aux.txt");
+	for (auto it= lcursos.begin(); it != lcursos.end(); it++){
+		if((*it).get_nombre() != "-1"){
+		lista2 << (*it).get_nombre() << std::endl;
+		lista2 << (*it).get_idc() << std::endl;
+		lista2 << (*it).get_descripcion() << std::endl;
+		}
+	}
+	lista2.close();
+
+	remove("data/Lista_cursos.txt");
+	rename("data/Lista_cursos_aux.txt", "data/Lista_cursos.txt");
+
 }
 
 bool set_descripcion(){
@@ -121,15 +135,30 @@ bool set_descripcion(){
 
 	std::cout << "Introduzca el nombre del curso\n";
 	std::getline(std::cin, nombre);
-	std::cin.ignore();
+
 
 	std::cout << "Intoduzca la nueva descripción\n";
 	std::getline(std::cin, descripcion);
-	std::cin.ignore();
+
 
 	for(auto it=lcursos.begin(); it != lcursos.end(); it++){
 		if((*it).get_nombre()== nombre){
 			(*it).set_description(descripcion);
+
+			std::ofstream lista2;
+			lista2.open("data/Lista_cursos_aux.txt");
+			for (auto it1= lcursos.begin(); it1 != lcursos.end(); it1++){
+
+				lista2 << (*it1).get_nombre() << std::endl;
+				lista2 << (*it1).get_idc() << std::endl;
+				lista2 << (*it1).get_descripcion() << std::endl;
+
+			}
+			lista2.close();
+
+			remove("data/Lista_cursos.txt");
+			rename("data/Lista_cursos_aux.txt", "data/Lista_cursos.txt");
+
 			return true;
 		}
 	}
@@ -151,7 +180,7 @@ std::list<Curso> cargar_cursos(){
 
 
 	while(!lista.eof()){
-		getline(lista, nombre)
+		getline(lista, nombre);
 		getline(lista, id);
 		id1 = stoi(id);
 		getline(lista, descripcion);

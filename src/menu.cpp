@@ -6,7 +6,7 @@
 #include "gestion_cursos.h"
 #include "inscripcion.h"
 
-void menu_admin();
+void menu_general();
 void menu_usuario();
 void menu_visitante();
 void inscripcion();
@@ -15,11 +15,11 @@ void visualizar();
 
 int main(){
 
-	menu_admin();
+	menu_general();
 
 }
 
-void menu_admin(){
+void menu_general(){
 
 	int opc=0;
 
@@ -56,6 +56,8 @@ void menu_usuario(){
 	std::cout << "1. Inscribirse en un curso \n";
 	std::cout << "2. Visualizar cursos \n";
 	std::cin >> opc;
+	std::cin.ignore(1000, '\n');
+
 	while(opc != 0){
 		switch(opc){
 			case 0:
@@ -78,7 +80,9 @@ void menu_visitante(){
 	std::cout <<"Introduzca el numero de la opción elegida \n\n";
 	std::cout << "0. Salir del programa \n";
 	std::cout << "1. Visualizar cursos \n";
+	std::cout << "";
 	std::cin >> opc;
+	std::cin.ignore(1000, '\n');
 	while(opc != 0){
 		switch(opc){
 			case 0:
@@ -137,12 +141,12 @@ void gestion(){
 
 		case 1:
 			add_curso();
-			std::cout << "Se ha añadido el curso \n";
+			std::cout << "Se ha añadido el curso \n\n";
 			break;
 
 		case 2:
 			delete_curso();
-			std::cout << "Se ha borrado el curso \n";
+			std::cout << "Se ha borrado el curso \n\n";
 		break;
 
 	}
