@@ -19,7 +19,6 @@ class Usuario{
 	public:
 		Usuario();
 
-
 		inline std::string get_nombre(){return nombre_;}
 		inline int get_id(){return id_;}
 		inline std::string get_email(){return email_;}
@@ -40,6 +39,7 @@ Usuario::Usuario(){
 
 	std::cout << "Introduzca su id" << std::endl;
 	std::cin >> id;
+	std::cin.ignore();
 	id_ = id;
 
 	std::cout << "Introduzca su email" << std::endl;
@@ -64,13 +64,15 @@ class listaUsuario: public Usuario{
 
 
 void inscribir_alumno(std::string curso){
-	std::string src = "src/data/";
+	std::string src = "data/";
 	std::ofstream curso_e;
 	src = src + curso + ".txt";
 
 	Usuario user;
 
 	curso_e.open(src);
+
+
 	std::string linea;
 	int id;
 
@@ -83,21 +85,24 @@ void inscribir_alumno(std::string curso){
 	curso_e << user.get_contraseña() << std::endl;
 
 	curso_e.close();
+
+
 }
 
 
 void get_lista_users(){
 
 	std::string nombre;
-	std::string src = "src/data/";
 
 	std::cout << "Introduzca el nombre del curso sustituyendo los espacios por _" << std::endl;
 	std::getline(std::cin, nombre);
 	std::cin.ignore();
 
-	src = src + nombre + ".txt";
+	nombre = "data/" + nombre + ".txt";
 
-	std::ifstream lista(src);
+	std::ifstream lista;
+	lista.open(nombre);
+
 	std::string linea;
 
 	while( getline(lista, linea) ){ //Coge la linea del nombre
@@ -108,6 +113,7 @@ void get_lista_users(){
 	}
 
 	lista.close();
+
 }
 
 #endif

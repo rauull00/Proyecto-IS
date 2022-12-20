@@ -96,7 +96,7 @@ void inscripcion(){
 
 	int opc1=0;
 
-	std::cout << "0. Volver al menu principal \n";
+	std::cout << "0. Terminar operaciones \n";
 	std::cout << "1. Comenzar la inscripcion \n";
 
 	std::cin >> opc1;
@@ -108,7 +108,7 @@ void inscripcion(){
 
 		case 1:
 			std::string curso;
-			std::cout << "Escriba el nombre de alguno de los siguientes cursos cambiando los espacios por _";
+			std::cout << "Escriba el nombre de alguno de los siguientes cursos cambiando los espacios por _ \n";
 			get_lista_cursos();
 			std::cin >> curso;
 			std::cin.ignore();
@@ -122,11 +122,10 @@ void gestion(){
 
 	int opc2=0;
 
-	std::cout << "0. Volver al menu principal \n";
+	std::cout << "0. Terminar operaciones \n";
 	std::cout << "1. Añadir un curso \n";
 	std::cout << "2. Borrar un curso \n";
 	std::cin >> opc2;
-
 
 	switch(opc2){
 
@@ -156,7 +155,7 @@ void visualizar(){
 
 	get_lista_cursos();
 
-	std::cout << "0. Volver al menu principal \n";
+	std::cout << "0. Terminar operaciones \n";
 	std::cout << "1. Visualizar la descripcion de un curso \n";
 
 	std::cin >> opc;
@@ -167,7 +166,7 @@ void visualizar(){
 		break;
 
 		case 1:
-			std::cout << "Escriba el nombre del curso del que desea visualizar la descripcion";
+			std::cout << "Escriba el nombre del curso del que desea visualizar la descripcion sustituyendo los espacios por _\n";
 			std::cin >> curso;
 			for (auto it1 = C.begin(); it1 != C.end(); it1++){
 				if ((*it1).get_nombre()== curso){

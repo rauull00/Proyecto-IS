@@ -48,7 +48,8 @@ Curso::Curso(int idc, std::string nombre_curso, std::string descripcion_curso){
 
 void get_lista_cursos(){
 
-	std::ifstream lista("src/data/Lista_cursos.txt");
+	std::ifstream lista;
+	lista.open("data/Lista_cursos.txt");
 	std::string linea;
 
 	while( getline(lista, linea) ){ // Coge el nombre del curso
@@ -66,7 +67,8 @@ void add_curso(){
 	lcursos = cargar_cursos();
 
 	std::ofstream lista;
-	lista.open("src/data/Lista_cursos.txt");
+	lista.open("data/Lista_cursos.txt");
+
 	std::string nombre;
 	std::string descripcion;
 	int idc;
@@ -105,7 +107,7 @@ void delete_curso(){
 	std::cin >> idc;
 
 	for(auto it=lcursos.begin(); it != lcursos.end(); it++){
-		if((*it).get_idc()==idc){
+		if((*it).get_idc() == idc){
 			lcursos.erase(it);
 		}
 	}
@@ -144,7 +146,10 @@ std::list<Curso> cargar_cursos(){
 	std::string linea2;
 	std::string linea3;
 
-	std::ifstream lista("src/data/Lista_cursos.txt");
+	std::ifstream lista;
+	lista.open("data/Lista_cursos.txt");
+
+
 	while(getline(lista, linea1)){
 		linea1a = stoi(linea1);
 		getline(lista, linea2);
