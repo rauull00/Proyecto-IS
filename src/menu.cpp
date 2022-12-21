@@ -235,9 +235,7 @@ void inscripcion(){
 			std::string curso;
 			std::cout << "Escriba el nombre de alguno de los siguientes cursos\n";
 			get_lista_cursos();
-			std::cout << '\n';
-			std::cin >> curso;
-			std::cin.ignore();
+			std::getline(std::cin, curso);
 			if(!existe_curso(curso)){
 				std::cout << "El curso introducido no existe";
 				exit(EXIT_FAILURE);

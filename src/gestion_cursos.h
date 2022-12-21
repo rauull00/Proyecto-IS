@@ -84,9 +84,9 @@ void add_curso(){
 
 	Curso c(idc, nombre, descripcion);
 
-	lista << c.get_idc() << std::endl;
-	lista << c.get_nombre() << std::endl;
 
+	lista << c.get_nombre() << std::endl;
+	lista << c.get_idc() << std::endl;
 	lista << c.get_descripcion() << std::endl;
 
 

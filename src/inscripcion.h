@@ -54,6 +54,7 @@ void inscribir_alumno(std::string curso, std::string nombre, int id, std::string
 	int id1;
 	std::string src = "data/";
 	src = src + curso + ".txt";
+
 	if(esta_inscrito(src, id)){
 		exit(EXIT_FAILURE);
 	}
@@ -64,7 +65,7 @@ void inscribir_alumno(std::string curso, std::string nombre, int id, std::string
 	curso_e << nombre << std::endl;
 	curso_e << id << std::endl;
 	curso_e << email << std::endl;
-	curso_e << contraseña << '\n' << std::endl;
+	curso_e << contraseña << '\n';
 
 
 	curso_e.close();
@@ -77,7 +78,7 @@ void get_lista_users(){
 
 	std::string nombre;
 
-	std::cout << "Introduzca el nombre del curso sustituyendo los espacios por _" << std::endl;
+	std::cout << "Introduzca el nombre del curso" << std::endl;
 	get_lista_cursos();
 	std::cout << '\n';
 	std::getline(std::cin, nombre);
