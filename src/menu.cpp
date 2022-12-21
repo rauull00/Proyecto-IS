@@ -234,7 +234,7 @@ void inscripcion(){
 
 		case 1:
 			std::string curso;
-			std::cout << "Escriba el nombre de alguno de los siguientes cursos cambiando los espacios por _ \n";
+			std::cout << "Escriba el nombre de alguno de los siguientes cursos\n";
 			get_lista_cursos();
 			std::cout << '\n';
 			std::cin >> curso;
@@ -323,7 +323,7 @@ void visualizar(){
 		break;
 
 		case 1:
-			std::cout << "Escriba el nombre del curso del que desea visualizar la descripcion sustituyendo los espacios por _\n";
+			std::cout << "Escriba el nombre del curso del que desea visualizar la descripcion\n";
 			std::getline(std::cin, curso);
 			if(!existe_curso(curso)){
 				std::cout << "El curso introducido no existe";
