@@ -128,7 +128,6 @@ int inicio_sesion(std::string email,  std::string contraseña){
 
 		if((email == email1) && (contraseña == contraseña1)){
 			send_privilegio = stoi(privilegio);
-			std::cout << send_privilegio << std::endl;
 			id1 = stoi(id);
 			if(send_privilegio == 5){
 				idg = id1;

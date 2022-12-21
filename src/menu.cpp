@@ -57,7 +57,6 @@ void menu_inicio_sesion(){
 				std::cout << "Escriba su contraseña\n";
 				std::getline(std::cin, contraseña);
 				priv = inicio_sesion(email, contraseña);
-				std::cout << priv << std::endl;
 				if(priv == 1){
 					std::cout << "Su email o contraseña no son correctos\n";
 					count++;
