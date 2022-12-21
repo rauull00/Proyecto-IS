@@ -115,9 +115,9 @@ void delete_curso(){
 	lista2.open("data/Lista_cursos_aux.txt");
 	for (auto it= lcursos.begin(); it != lcursos.end(); it++){
 		if((*it).get_nombre() != "-1"){
-		lista2 << (*it).get_nombre() << std::endl;
-		lista2 << (*it).get_idc() << std::endl;
-		lista2 << (*it).get_descripcion() << std::endl;
+			lista2 << (*it).get_nombre() << std::endl;
+			lista2 << (*it).get_idc() << std::endl;
+			lista2 << (*it).get_descripcion() << std::endl;
 		}
 	}
 	lista2.close();
@@ -149,8 +149,8 @@ bool set_descripcion(){
 			lista2.open("data/Lista_cursos_aux.txt");
 			for (auto it1= lcursos.begin(); it1 != lcursos.end(); it1++){
 
-				lista2 << (*it1).get_nombre() << std::endl;
 				lista2 << (*it1).get_idc() << std::endl;
+				lista2 << (*it1).get_nombre() << std::endl;
 				lista2 << (*it1).get_descripcion() << std::endl;
 
 			}

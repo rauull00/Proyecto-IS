@@ -1,0 +1,15 @@
+admin
+0
+0
+admin@mail.com
+admin
+coordinador
+1
+3
+coord@mail.com
+coordinador
+Pepe
+2
+5
+pepe@uco.es
+pepito
