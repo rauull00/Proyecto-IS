@@ -310,7 +310,7 @@ void visualizar(){
 	C = cargar_cursos();
 
 	get_lista_cursos();
-
+	std::cout << '\n';
 	std::cout << "\n0. Terminar operaciones \n";
 	std::cout << "1. Visualizar la descripcion de un curso \n";
 
