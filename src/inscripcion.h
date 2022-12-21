@@ -9,46 +9,34 @@
 #include <string>
 #include <list>
 
+bool inicio_sesion(std::string email,  std::string contraseña);
+
 class Usuario{
 	private:
 		std::string nombre_;
 		int id_;
 		std::string email_;
 		std::string contraseña_;
+		int privilegio_;
 
 	public:
-		Usuario();
+		Usuario(std::string nombre, int id, std::string email, std::string contraseña, int privilegio);
 
 		inline std::string get_nombre(){return nombre_;}
 		inline int get_id(){return id_;}
 		inline std::string get_email(){return email_;}
 		inline std::string get_contraseña(){return contraseña_;}
+
 };
 
 void inscribir_alumno(std::string curso);
 
-Usuario::Usuario(){
-	std::string nombre;
-	int id;
-	std::string email;
-	std::string contraseña;
-
-	std::cout << "Introduzca su nombre" << std::endl;
-	std::getline(std::cin, nombre);
+Usuario::Usuario(std::string nombre, int id, std::string email, std::string contraseña, int privilegio){
 	nombre_ = nombre;
-
-	std::cout << "Introduzca su id" << std::endl;
-	std::cin >> id;
-	std::cin.ignore();
 	id_ = id;
-
-	std::cout << "Introduzca su email" << std::endl;
-	std::getline(std::cin, email);
 	email_ = email;
-
-	std::cout << "Introduzca su contraseña" << std::endl;
-	std::getline(std::cin, contraseña);
 	contraseña_ = contraseña;
+	privilegio_ = privilegio;
 }
 
 
@@ -63,29 +51,33 @@ class listaUsuario: public Usuario{
 };
 
 
-void inscribir_alumno(std::string curso){
+void inscribir_alumno(std::string curso, std::string nombre, int id, std::string email, std::string contraseña, int privilegio){
 	std::string src = "data/";
 	std::ofstream curso_e;
 	src = src + curso + ".txt";
 
-	Usuario user;
+	std::ofstream ini_sesion;
 
-	curso_e.open(src);
+	ini_sesion.open("data/Inicio_sesion.txt", std::ios::app);
+	curso_e.open(src, std::ios::app);
 
 
-	std::string linea;
-	int id;
 
-	curso_e << user.get_nombre() << std::endl;
+	curso_e << nombre << std::endl;
+	ini_sesion << nombre << std::endl;
+	ini_sesion << privilegio << std::endl;
 
-	curso_e << user.get_id() << std::endl;
+	curso_e << id << std::endl;
+	ini_sesion << id << std::endl;
 
-	curso_e << user.get_email() << std::endl;
+	curso_e << email << std::endl;
+	ini_sesion << email << std::endl;
 
-	curso_e << user.get_contraseña() << std::endl;
+	curso_e << contraseña << std::endl;
+	ini_sesion << contraseña << std::endl;
 
 	curso_e.close();
-
+	ini_sesion.close();
 
 }
 
@@ -114,6 +106,33 @@ void get_lista_users(){
 
 	lista.close();
 
+}
+
+bool inicio_sesion(std::string email,  std::string contraseña){
+
+	std::string nombre;
+	std::string id;
+	std::string privilegio;
+	int send_privilegio;
+	std::string email1;
+	std::string contraseña1;
+
+	std::ifstream lista;
+	lista.open("data/Inicio_sesion.txt");
+
+
+	while(!lista.eof()){
+		getline(lista, nombre);
+		getline(lista, id);
+		getline(lista, privilegio);
+		getline(lista, email1);
+		getline(lista, contraseña1);
+		if((email1 == email) && (contraseña1 == contraseña)){
+			send_privilegio = stoi(privilegio);
+			return send_privilegio;
+		}
+	}
+	return -1;
 }
 
 #endif
