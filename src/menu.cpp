@@ -14,8 +14,6 @@ void menu_visitante();
 void inscripcion();
 void gestion();
 void visualizar();
-bool existe_curso(std::string curso);
-bool existe_id(int id);
 
 /*
 Privilegios
@@ -204,7 +202,6 @@ void menu_visitante(){
 	std::cout <<"Introduzca el numero de la opción elegida \n\n";
 	std::cout << "0. Salir del programa \n";
 	std::cout << "1. Visualizar cursos \n";
-	std::cout << "";
 	std::cin >> opc;
 	std::cin.ignore(1000, '\n');
 	while(opc != 0){
@@ -239,6 +236,7 @@ void inscripcion(){
 			std::string curso;
 			std::cout << "Escriba el nombre de alguno de los siguientes cursos cambiando los espacios por _ \n";
 			get_lista_cursos();
+			std::cout << '\n';
 			std::cin >> curso;
 			std::cin.ignore();
 			if(!existe_curso(curso)){
@@ -272,8 +270,10 @@ void inscripcion(){
 void gestion(){
 
 	int opc2=0;
+	std::list<Curso> C;
+	C = cargar_cursos();
 
-	std::cout << "0. Terminar operaciones \n";
+	std::cout << "\n0. Terminar operaciones \n";
 	std::cout << "1. Añadir un curso \n";
 	std::cout << "2. Borrar un curso \n";
 	std::cout << "3. Ver alumnos en un curso\n";
@@ -296,7 +296,8 @@ void gestion(){
 			std::cout << "Se ha borrado el curso \n\n";
 		break;
 		case 3:
-
+			get_lista_users();
+			std::cout << '\n';
 		break;
 	}
 }
@@ -338,23 +339,4 @@ void visualizar(){
 	}
 }
 
-bool existe_curso(std::string curso){
-	std::list<Curso> listac = cargar_cursos();
-	for(auto it = listac.begin(); it != listac.end(); it++){
-		if((*it).get_nombre() == curso){
-			return true;
-		}
-	}
-	return false;
-}
-
-bool existe_id(int id){
-	std::list<Usuario> listac = cargar_usuarios();
-	for(auto it = listac.begin(); it != listac.end(); it++){
-		if((*it).get_id() == id){
-			return true;
-		}
-	}
-	return false;
-}
 

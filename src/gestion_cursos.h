@@ -37,9 +37,7 @@ class Curso{
 
 std::list<Curso> cargar_cursos();
 
-/*
-	Se necesita crear una funcion para borrar los cursos de los ficheros
-*/
+
 Curso::Curso(int idc, std::string nombre_curso, std::string descripcion_curso){
 	idc_ = idc;
 	nombre_curso_ = nombre_curso;

@@ -8,10 +8,14 @@
 #include <fstream>
 #include <string>
 #include <list>
+#include "gestion_cursos.h"
 
 int inicio_sesion(std::string email,  std::string contraseña);
 void get_lista_users();
+bool existe_curso(std::string curso);
+bool existe_id(int id);
 void crear_usuario(std::string nombre, int id, std::string email, std::string contraseña, int privilegio);
+bool esta_inscrito(std::string src, int id);
 int idg = 2;
 
 class Usuario{
@@ -45,32 +49,26 @@ Usuario::Usuario(std::string nombre, int id, std::string email, std::string cont
 
 
 void inscribir_alumno(std::string curso, std::string nombre, int id, std::string email, std::string contraseña, int privilegio){
+
+	std::string linea;
+	int id1;
 	std::string src = "data/";
-	std::ofstream curso_e;
 	src = src + curso + ".txt";
+	if(esta_inscrito(src, id)){
+		exit(EXIT_FAILURE);
+	}
 
-	std::ofstream ini_sesion;
-
-	ini_sesion.open("data/Inicio_sesion.txt", std::ios::app);
+	std::ofstream curso_e;
 	curso_e.open(src, std::ios::app);
 
-
-
 	curso_e << nombre << std::endl;
-	ini_sesion << nombre << std::endl;
-
 	curso_e << id << std::endl;
-	ini_sesion << id << std::endl;
-	ini_sesion << privilegio << std::endl;
-
 	curso_e << email << std::endl;
-	ini_sesion << email << std::endl;
+	curso_e << contraseña << '\n' << std::endl;
 
-	curso_e << contraseña << std::endl;
-	ini_sesion << contraseña << std::endl;
 
 	curso_e.close();
-	ini_sesion.close();
+
 
 }
 
@@ -80,8 +78,13 @@ void get_lista_users(){
 	std::string nombre;
 
 	std::cout << "Introduzca el nombre del curso sustituyendo los espacios por _" << std::endl;
+	get_lista_cursos();
+	std::cout << '\n';
 	std::getline(std::cin, nombre);
-	std::cin.ignore();
+	if(!existe_curso(nombre)){
+		std::cout << "El curso introducido no existe";
+	exit(EXIT_FAILURE);
+	}
 
 	nombre = "data/" + nombre + ".txt";
 
@@ -92,6 +95,7 @@ void get_lista_users(){
 
 	while( getline(lista, linea) ){ //Coge la linea del nombre
 		std::cout << linea;			// Imprime por pantalla el nombre de los usuarios
+		std::cout << '\n';
 		getline(lista, linea); //Linea del id
 		getline(lista, linea); //Linea del email
 		getline(lista, linea); //Linea de la contraseña
@@ -174,9 +178,49 @@ void crear_usuario(std::string nombre, int id, std::string email, std::string co
 	ini_sesion << id << std::endl;
 	ini_sesion << privilegio << std::endl;
 	ini_sesion << email << std::endl;
-	ini_sesion << contraseña << std::endl;
+	ini_sesion << contraseña << '\n' << std::endl;
 
 	ini_sesion.close();
+}
+
+bool existe_curso(std::string curso){
+	std::list<Curso> listac = cargar_cursos();
+	for(auto it = listac.begin(); it != listac.end(); it++){
+		if((*it).get_nombre() == curso){
+			return true;
+		}
+	}
+	return false;
+}
+
+bool existe_id(int id){
+	std::list<Usuario> listac = cargar_usuarios();
+	for(auto it = listac.begin(); it != listac.end(); it++){
+		if((*it).get_id() == id){
+			return true;
+		}
+	}
+	return false;
+}
+
+bool esta_inscrito(std::string src, int id){
+
+	std::string linea;
+	int id1;
+	std::ifstream curso_e(src);
+	while(getline(curso_e, linea)){
+		getline(curso_e, linea);
+		id1 = stoi(linea);
+		if (id1 == id){
+			std::cout << "Ya esta inscrito a este curso\n";
+			return true;
+		}
+		getline(curso_e, linea);
+		getline(curso_e, linea);
+	}
+	curso_e.close();
+	return false;
+
 }
 
 #endif
