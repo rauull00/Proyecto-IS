@@ -23,3 +23,8 @@ Pedro
 5
 pedro@uco.es
 pedrin
+Manuel
+6
+5
+manuel@uco.es
+manolo
