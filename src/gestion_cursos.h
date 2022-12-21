@@ -53,6 +53,7 @@ void get_lista_cursos(){
 
 	while( getline(lista, linea) ){ // Coge el nombre del curso
 		std::cout << linea;			// Imprime por pantalla el nombre del curso
+		std::cout << '\n';
 		getline(lista, linea);	//Linea del id del curso
 		getline(lista, linea);	//Linea de la descripcion
 	}
