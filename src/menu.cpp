@@ -241,24 +241,31 @@ void inscripcion(){
 				exit(EXIT_FAILURE);
 			}
 
-
-			std::list<Usuario> users = cargar_usuarios();
 			std::string nombre;
-			int id;
+			std::string id;
+			int id1;
+			std::string privilegio;
 			std::string email;
 			std::string contraseña;
 
-			for(auto it = users.begin(); it != users.end(); it++){
-				if((*it).get_id()==idg){
-					nombre = (*it).get_nombre();
-					id = (*it).get_id();
-					email = (*it).get_email();
-					contraseña = (*it).get_contraseña();
+			std::ifstream lista("data/Inicio_sesion.txt");
+
+			while(!lista.eof()){
+				getline(lista, nombre);
+				getline(lista, id);
+				getline(lista, privilegio);
+				getline(lista, email);
+				getline(lista, contraseña);
+				id1 = stoi(id);
+				if(idg == id1){
+					inscribir_alumno(curso, nombre, id1, email, contraseña, 5);
+					std::cout << "Se ha inscrito al curso seleccionado\n";
+					lista.close();
+					exit(EXIT_SUCCESS);
 				}
 			}
-			inscribir_alumno(curso, nombre, id, email, contraseña, 5);
+			lista.close();
 
-			std::cout << "Se ha inscrito al curso seleccionado\n";
 		break;
 
 		}

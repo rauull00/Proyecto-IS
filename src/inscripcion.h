@@ -55,10 +55,6 @@ void inscribir_alumno(std::string curso, std::string nombre, int id, std::string
 	std::string src = "data/";
 	src = src + curso + ".txt";
 
-	if(esta_inscrito(src, id)){
-		exit(EXIT_FAILURE);
-	}
-
 	std::ofstream curso_e;
 	curso_e.open(src, std::ios::app);
 
@@ -133,6 +129,7 @@ int inicio_sesion(std::string email,  std::string contraseña){
 			if(send_privilegio == 5){
 				idg = id1;
 			}
+
 			return (send_privilegio);
 		}
 	}
