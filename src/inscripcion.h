@@ -178,7 +178,7 @@ void crear_usuario(std::string nombre, int id, std::string email, std::string co
 	ini_sesion << id << std::endl;
 	ini_sesion << privilegio << std::endl;
 	ini_sesion << email << std::endl;
-	ini_sesion << contraseña << '\n' << std::endl;
+	ini_sesion << contraseña << '\n';
 
 	ini_sesion.close();
 }
